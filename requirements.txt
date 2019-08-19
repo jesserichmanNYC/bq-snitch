@@ -1,0 +1,2 @@
+google
+google-cloud-bigquery==1.18.0

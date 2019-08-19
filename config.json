@@ -1,0 +1,10 @@
+{
+  "ALERT_THRESHOLD": 10,
+  "TB_COST": 5,
+  "SLACK_WEBHOOK_URL": "https://hooks.slack.com/services/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",
+  "SLACK_ALERT": true,
+  "FIELDS_TO_RETRIEVE": [
+    "job_id",
+    "user_email"
+  ]
+}
