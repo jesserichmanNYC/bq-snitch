@@ -18,7 +18,7 @@ FIELDS_TO_RETRIEVE - Define which first level fields you want to retrieve from t
 
 # Deploy Function
 
-export PROJECT_ID=<YOUR-PROJECT-ID>
+export PROJECT_ID=YOUR-PROJECT-ID
 
 gcloud config set project $PROJECT_ID
 
