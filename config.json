@@ -12,6 +12,8 @@
   ],
   "FIELDS_TO_RETRIEVE": [
     "job_id",
-    "user_email"
+    "user_email",
+    "total_bytes_billed",
+    "total_bytes_processed"
   ]
 }
