@@ -22,7 +22,8 @@ EMAIL_SENDER - The email address you want the alert email to be sent from
 
 EMAIL_RECIPIENTS - List of emails you want to receive the alerts
   
-FIELDS_TO_RETRIEVE - Define which first level fields you want to retrieve from the job data, in order to send it in an alert message
+FIELDS_TO_RETRIEVE - Define which first level fields you want to retrieve from the job data, in order to send it in an alert message. 
+Optional fields can be found here:  https://googleapis.github.io/google-cloud-python/latest/bigquery/generated/google.cloud.bigquery.job.QueryJob.html#google.cloud.bigquery.job.QueryJob 
 
 # Deploy Function
 
