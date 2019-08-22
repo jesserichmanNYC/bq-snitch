@@ -3,6 +3,13 @@
   "TB_COST": 5,
   "SLACK_ALERT": true,
   "SLACK_WEBHOOK_URL": "https://hooks.slack.com/services/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",
+  "EMAIL_ALERT": true,
+  "SENDGRID_API_KEY": "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",
+  "EMAIL_SENDER": "moshe@doit-intl.com",
+  "EMAIL_RECIPIENTS": [
+    "ohaionm@gmail.com",
+    "moshe.ohaion@mentory.io"
+  ],
   "FIELDS_TO_RETRIEVE": [
     "job_id",
     "user_email"
