@@ -18,7 +18,8 @@ def bq_informer(data, context):
     job_id = resource_name[slicing_index:]
     job = client.get_job(job_id)
     total_tera_bytes_billed = job.total_bytes_billed / 1000000000000
-    total_cost = total_tera_bytes_billed / tera_bytes_cost
+    total_cost = total_tera_bytes_billed * tera_bytes_cost
+    print("Total cost: " + total_cost)
     if total_cost >= alert_threshold:
         print("Job violated cost threshold limit")
         fields_to_retrieve = config['FIELDS_TO_RETRIEVE']
@@ -39,6 +40,7 @@ def bq_informer(data, context):
             print("Sending email alert")
             sender = config['EMAIL_SENDER']
             recipients = config['EMAIL_RECIPIENTS']
-            alert_channels.send_email_alert(sender, recipients, job, details)
+            sendgrid_api_key = config['SENDGRID_API_KEY']
+            alert_channels.send_email_alert(sendgrid_api_key, sender, recipients, details)
     else:
         print("Job didn't violate cost threshold limit")

@@ -27,6 +27,8 @@ Optional fields can be found here:  https://googleapis.github.io/google-cloud-py
 
 # Deploy Function
 
+gcloud projects add-iam-policy-binding <project_name> --role=roles/cloudfunctions.serviceAgent --member=serviceAccount:service-<project_number>@gcf-admin-robot.iam.gserviceaccount.com
+
 export PROJECT_ID=YOUR-PROJECT-ID
 
 gcloud config set project $PROJECT_ID
