@@ -19,7 +19,7 @@ def bq_informer(data, context):
     job = client.get_job(job_id)
     total_tera_bytes_billed = job.total_bytes_billed / 1000000000000
     total_cost = total_tera_bytes_billed * tera_bytes_cost
-    print("Total cost: " + total_cost)
+    print("Total cost: " + str(total_cost))
     if total_cost >= alert_threshold:
         print("Job violated cost threshold limit")
         fields_to_retrieve = config['FIELDS_TO_RETRIEVE']
