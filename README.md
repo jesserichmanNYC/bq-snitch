@@ -9,12 +9,12 @@ Before deploying the function, adjust the properties in config.json:
 
  - **TB_COST** - The amount Google charges for 1 Terabyte of data processed by a query ($5 per TB according to https://cloud.google.com/bigquery/pricing#on_demand_pricing)
 
- - **SLACK_ALERT** - Should slack alerts be enabled (value can be either `true` or `false)
+ - **SLACK_ALERT** - Should slack alerts be enabled (value can be either `true` or `false`)
 
  - **SLACK_WEBHOOK_URL** - If slack alerts enabled, alerts will be sent to this URL. Using the following link will help you generate the URL:
 https://api.slack.com/incoming-webhooks
 
- - **EMAIL_ALERT** - Should email alerts be enabled (value can be either `true` or `false)
+ - **EMAIL_ALERT** - Should email alerts be enabled (value can be either `true` or `false`)
 
  - **SENDGRID_API_KEY** - API key of your Sendgrid account. Go to https://app.sendgrid.com -> Settings -> API Keys to retrieve your key. If you don't have Sendgrid account, you can sign up for a free edition [here](https://console.cloud.google.com/marketplace/details/sendgrid-app/sendgrid-email).
 
