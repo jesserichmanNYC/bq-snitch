@@ -38,9 +38,10 @@ def bq_informer(data, context):
         email_alert = config['EMAIL_ALERT']
         if email_alert:
             print("Sending email alert")
+            user_email = getattr(job, "user_email")
             sender = config['EMAIL_SENDER']
-            recipients = config['EMAIL_RECIPIENTS']
+            cc_list = config['EMAIL_CC']
             sendgrid_api_key = config['SENDGRID_API_KEY']
-            alert_channels.send_email_alert(sendgrid_api_key, sender, recipients, details)
+            alert_channels.send_email_alert(sendgrid_api_key, sender, user_email, cc_list, details)
     else:
         print("Job didn't violate cost threshold limit")
