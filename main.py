@@ -22,18 +22,21 @@ def bq_informer(data, context):
     print("Total cost: " + str(total_cost))
     if total_cost >= alert_threshold:
         print("Job violated cost threshold limit")
+        giga_bytes_billed = total_tera_bytes_billed / 1000
         fields_to_retrieve = config['FIELDS_TO_RETRIEVE']
-        details = ""
+        customize_details = ""
         for field in fields_to_retrieve:
-            details = details + field + "=" + str(getattr(job, field, "Non")) + ", "
-        details = details + 'cost=' + str(total_cost)
+            customize_details = customize_details + field + "=" + str(getattr(job, field, "Non")) + ", "
+        customize_details = customize_details + 'cost=' + str(total_cost)
 
-        print("Job details: \n" + details)
+        print("Job details: \n" + customize_details)
         slack_alert = config['SLACK_ALERT']
         if slack_alert:
             print("Sending slack alert")
             wekbook_url = config['SLACK_WEBHOOK_URL']
-            alert_channels.send_slack_alert(wekbook_url, details)
+
+            alert_channels.send_slack_alert(wekbook_url, job.query, job_id, job.user_email, total_cost,
+                                            giga_bytes_billed, customize_details)
 
         email_alert = config['EMAIL_ALERT']
         if email_alert:
@@ -42,6 +45,6 @@ def bq_informer(data, context):
             sender = config['EMAIL_SENDER']
             cc_list = config['EMAIL_CC']
             sendgrid_api_key = config['SENDGRID_API_KEY']
-            alert_channels.send_email_alert(sendgrid_api_key, sender, user_email, cc_list, details)
+            alert_channels.send_email_alert(sendgrid_api_key, sender, user_email, cc_list, customize_details)
     else:
         print("Job didn't violate cost threshold limit")

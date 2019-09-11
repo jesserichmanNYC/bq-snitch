@@ -15,4 +15,5 @@
 .idea
 node_modules
 README.md
+test.py
 #!include:.gitignore

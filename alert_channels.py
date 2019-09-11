@@ -5,11 +5,47 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import *
 
 
-def send_slack_alert(wekbook_url, details):
+def send_slack_alert(wekbook_url, query, job_id, user_email, cost, gigabytes_billed, customize_details):
     try:
         data = {
-            'text': 'Job crossed threshold. Job details: ' + details,
-            'username': 'bq-informer'
+            "test": "testText",
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "The following query has processed large amount of data:"
+                    }
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "Query Syntax ```" + str(query) + "```"
+                    }
+                },
+                {
+                    "type": "section",
+                    "fields": [
+                        {
+                            "type": "mrkdwn",
+                            "text": "Job ID *" + str(job_id) + "*"
+                        },
+                        {
+                            "type": "mrkdwn",
+                            "text": "Query User *" + str(user_email) + "*"
+                        },
+                        {
+                            "type": "mrkdwn",
+                            "text": "Gigabytes Billed *" + str(truncate(gigabytes_billed, 2)) + "*"
+                        },
+                        {
+                            "type": "mrkdwn",
+                            "text": "Query Cost *$" + str(truncate(cost, 2)) + "*"
+                        }
+                    ]
+                }
+            ]
         }
 
         requests.post(wekbook_url, data=json.dumps(
@@ -32,3 +68,11 @@ def send_email_alert(sendgrid_api_key, sender, user_email, cc_list, details):
         sg.send(message)
     except Exception as e:
         print("Failed to send email alert. \n" + e.message)
+
+
+def truncate(f, n):
+    s = '{}'.format(f)
+    if 'e' in s or 'E' in s:
+        return '{0:.{1}f}'.format(f, n)
+    i, p, d = s.partition('.')
+    return '.'.join([i, (d + '0' * n)[:n]])
