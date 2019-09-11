@@ -5,9 +5,9 @@
   "SLACK_WEBHOOK_URL": "",
   "EMAIL_ALERT": true,
   "SENDGRID_API_KEY": "",
-  "EMAIL_SENDER": "moshe@doit-intl.com",
+  "EMAIL_SENDER": "",
   "EMAIL_CC": [
-    "ohaionm@gmail.com"
+
   ],
   "FIELDS_TO_RETRIEVE": [
 
