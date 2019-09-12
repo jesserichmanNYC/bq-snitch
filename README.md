@@ -12,7 +12,12 @@ Before deploying the function, adjust the properties in config.json:
  - **SLACK_ALERT** - Should Slack alerts be enabled (value can be either `true` or `false`)
 
  - **SLACK_WEBHOOK_URL** - If slack alerts enabled, alerts will be sent to this URL. Using the following link will help you generate the URL:
-https://api.slack.com/incoming-webhooks
+https://api.slack.com/incoming-webhooks.
+
+- **SLACK_WEB_API_TOKEN** - If slack alerts enabled, alerts will be sent via Web API using this token. Using the following link will help you generate the token:
+https://api.slack.com/web
+
+- **SLACK_WEB_API_DESTINATION_CHANNEL** - If slack alert enabled and SLACK_WEB_API_TOKEN is defined, alert will be sent via Web API to this channel
 
  - **EMAIL_ALERT** - Should email alerts be enabled (value can be either `true` or `false`)
 

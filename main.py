@@ -34,8 +34,10 @@ def bq_informer(data, context):
         if slack_alert:
             print("Sending slack alert")
             wekbook_url = config['SLACK_WEBHOOK_URL']
+            web_api_token = config['SLACK_WEB_API_TOKEN']
+            dest_channel = config['SLACK_WEB_API_DESTINATION_CHANNEL']
 
-            alert_channels.send_slack_alert(wekbook_url, job.query, job_id, job.user_email, total_cost,
+            alert_channels.send_slack_alert(wekbook_url, web_api_token, dest_channel, job.query, job_id, job.user_email, total_cost,
                                             giga_bytes_billed, customize_details)
 
         email_alert = config['EMAIL_ALERT']
