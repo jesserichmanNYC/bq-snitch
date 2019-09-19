@@ -48,26 +48,28 @@ def send_slack_alert(wekbook_url, web_api_token, dest_channel, query, job_id, us
         ]
 
         if wekbook_url:
-            send_slack_alert_webhook(wekbook_url, message_blocks)
+            send_slack_alert_webhook(wekbook_url, dest_channel, message_blocks)
 
         if web_api_token:
-            send_slack_alert_web_api(web_api_token, dest_channel, message_blocks)
+            send_slack_alert_web_api(web_api_token, dest_channel, message_blocks, user_email)
     except Exception as e:
-        print("Failed to send slack alert. \n" + e.message)
+        print("Failed to send slack alert. \n")
+        print(e)
 
 
-def send_slack_alert_webhook(wekbook_url, blocks):
+def send_slack_alert_webhook(wekbook_url, dest_channel, blocks):
     print("sending slack webhook alert")
     try:
-        data = {"blocks": blocks}
+        data = {"blocks": blocks, "channel": dest_channel}
 
         requests.post(wekbook_url, data=json.dumps(
             data), headers={'Content-Type': 'application/json'})
     except Exception as e:
-        print("Failed to send slack alert. \n" + e.message)
+        print("Failed to send slack alert. \n")
+        print(e)
 
 
-def send_slack_alert_web_api(web_api_token, dest_channel, message_blocks):
+def send_slack_alert_web_api(web_api_token, dest_channel, message_blocks, user_email):
     print("sending slack web api alert")
     client = slack.WebClient(web_api_token)
     try:
@@ -75,11 +77,29 @@ def send_slack_alert_web_api(web_api_token, dest_channel, message_blocks):
         client.chat_postMessage(channel=dest_channel, blocks=message_blocks)
 
     except Exception as e:
-        print("Failed to send slack alert. \n" + e.message)
+        print("Failed to send slack alert to channel: " + dest_channel)
+        print(e)
+
+    try:
+
+        slack_user = client.users_lookupByEmail(email=user_email)
+        if slack_user:
+            user_id = slack_user.data.get("user").get("id")
+            client.chat_postMessage(channel=user_id, blocks=message_blocks)
+
+    except Exception as e:
+        print("Failed to send slack alert to user: " + user_email)
+        print(e)
 
 
-def send_email_alert(sendgrid_api_key, sender, user_email, cc_list, details):
-    email_body = "Hey, <br> Job crossed the cost limit. Following is the job details:<br><strong>" + details + "</strong>"
+def send_email_alert(sendgrid_api_key, sender, query, job_id, user_email, cc_list, total_cost, giga_bytes_billed,
+                     details):
+    email_body = "Hey, <br> The following query has processed large amount of data:" \
+                 + "<br><strong>" + query + "</strong>" \
+                 + "<br>Job ID <strong>" + job_id + "</strong>  Query User <strong>" + user_email + "</strong>" \
+                 + "<br>" + "Gigabytes Billed <strong>" + str(truncate(giga_bytes_billed, 2)) \
+                 + "</strong>   Query Cost <strong>$" + str(truncate(total_cost, 2)) + "</strong>"
+
     message = Mail(
         from_email=sender,
         to_emails=user_email,
@@ -91,7 +111,8 @@ def send_email_alert(sendgrid_api_key, sender, user_email, cc_list, details):
         sg = SendGridAPIClient(sendgrid_api_key)
         sg.send(message)
     except Exception as e:
-        print("Failed to send email alert. \n" + e.message)
+        print("Failed to send email alert. \n")
+        print(e)
 
 
 def truncate(f, n):
