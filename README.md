@@ -1,5 +1,5 @@
-# BigQuery Job Informer
-Cloud Function triggered by BigQuery job and informing the user via Slack and email who initiated the job with query details (date/time, syntax, amount of scanned data and cost).
+# BigQuery Snitch
+Implemented as Google Cloud Function and triggered by BigQuery `query` job to inform the user/channel on Email/Slack along with query details (date/time, syntax, amount of scanned data and cost).
 
 # Configuration
 
