@@ -5,25 +5,25 @@ Implemented as Google Cloud Function and triggered by BigQuery `query` job to in
 
 Before deploying the function, adjust the properties in config.json:
 
- - **ALERT_THRESHOLD** - Any query reaching this value will trigger an alert, i.e. `1` means $1.0 USD
+ - **ALERT_THRESHOLD** - Any query reaching this value will trigger an alert, e.g., `1` means $1 USD
 
  - **TB_COST** - The amount Google charges for 1 Terabyte of data processed by a query ($5 per TB according to https://cloud.google.com/bigquery/pricing#on_demand_pricing)
 
  - **SLACK_ALERT** - Should Slack alerts be enabled (value can be either `true` or `false`)
 
- - **SLACK_WEBHOOK_URL** - If slack alerts enabled, alerts will be sent to this URL. Using the following link will help you generate the URL:
-https://api.slack.com/incoming-webhooks.
+ - **SLACK_WEBHOOK_URL** - If Slack alerts are enabled, alerts will be sent to this URL. Using the following link will help you generate the URL:
+https://api.slack.com/incoming-webhooks
 
-- **SLACK_WEB_API_TOKEN** - If slack alerts enabled, alerts will be sent via Web API using this token. Using the following link will help you generate the token:
+- **SLACK_WEB_API_TOKEN** - If Slack alerts are enabled, alerts will be sent via Web API using this token. Using the following link will help you generate the token:
 https://api.slack.com/web
 
-- **SLACK_WEB_API_DESTINATION_CHANNEL** - If slack alert enabled and SLACK_WEB_API_TOKEN is defined, alert will be sent via Web API to this channel
+- **SLACK_WEB_API_DESTINATION_CHANNEL** - If Slack alert is enabled and SLACK_WEB_API_TOKEN is defined, alert will be sent via Web API to said channel
 
  - **EMAIL_ALERT** - Should email alerts be enabled (value can be either `true` or `false`)
 
- - **SENDGRID_API_KEY** - API key of your Sendgrid account. Go to https://app.sendgrid.com -> Settings -> API Keys to retrieve your key. If you don't have Sendgrid account, you can sign up for a free edition [here](https://console.cloud.google.com/marketplace/details/sendgrid-app/sendgrid-email).
+ - **SENDGRID_API_KEY** - API key of your SendGrid account. Go to https://app.sendgrid.com -> Settings -> API Keys to retrieve your key. If you don't have a SendGrid account, you can sign up for a free plan [here](https://console.cloud.google.com/marketplace/details/sendgrid-app/sendgrid-email).
 
- - **EMAIL_SENDER** - The email address you want the alert email to be sent from (i.e. `bq-notifier@domain.com`)
+ - **EMAIL_SENDER** - The email address you want the alert email to be sent from (e.g., `bq-notifier@domain.com`).
 
  - **EMAIL_RECIPIENTS** - List of additional emails to receive the alerts. Alerts will always be sent to the user who has executed the query.
   
